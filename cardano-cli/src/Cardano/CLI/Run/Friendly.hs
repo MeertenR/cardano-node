@@ -37,6 +37,7 @@ friendlyTxBody
       , txFee
       , txValidityRange
       , txMetadata
+      , txAuxScripts
       , txWithdrawals
       , txCertificates
       , txUpdateProposal
@@ -47,6 +48,9 @@ friendlyTxBody
         , "fee"     .= friendlyFee txFee
         , "inputs"  .= friendlyInputs txIns
         , "outputs" .= map friendlyTxOut txOuts
+        ]
+    ++  [ "auxiliary scripts" .= friendlyAuxScripts txAuxScripts
+        | Just _ <- [auxScriptsSupportedInEra era]
         ]
     ++  [ "certificates" .= friendlyCertificates txCertificates
         | Just _ <- [certificatesSupportedInEra era]
@@ -180,6 +184,11 @@ friendlyMetadataValue = \case
     array
       [array [friendlyMetadataValue k, friendlyMetadataValue v] | (k, v) <- m]
   TxMetaText   text  -> toJSON text
+
+friendlyAuxScripts :: TxAuxScripts era -> Aeson.Value
+friendlyAuxScripts = \case
+  TxAuxScriptsNone       -> Null
+  TxAuxScripts _ scripts -> String $ textShow scripts
 
 friendlyInputs :: [(TxIn, build)] -> Aeson.Value
 friendlyInputs = toJSON . map fst
