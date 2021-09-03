@@ -172,7 +172,7 @@ runMachineTimeline chainInfo logfiles MachineTimelineOutputFiles{..} = do
        (renderDerivedSlots drvVectors0)
     forM_ mtofHistogram
       (renderHistogram "CPU usage spans over 85%" "Span length"
-        (toList $ sort $ sSpanLensCPU85 timeline))
+        (toList $ sort $ sSpanLensCPU85All timeline))
 
     flip (maybe $ LBS.putStrLn timelineOutput) mtofAnalysis $
       \case
