@@ -13,6 +13,7 @@ import           Cardano.Prelude
 
 import           Data.Aeson (Value (..), object, toJSON, (.=))
 import qualified Data.Aeson as Aeson
+import qualified Data.Text.Encoding as Text
 import           Data.Yaml (array)
 import           Data.Yaml.Pretty (defConfig, encodePretty, setConfCompare)
 
@@ -163,7 +164,22 @@ friendlyLovelace (Lovelace value) = String $ textShow value <> " Lovelace"
 friendlyMintValue :: TxMintValue ViewTx era -> Aeson.Value
 friendlyMintValue = \case
   TxMintNone        -> Null
-  TxMintValue _ v _ -> toJSON v
+  TxMintValue _ v _ ->
+    object
+      [ friendlyAssetId assetId .= quantity
+      | (assetId, quantity) <- valueToList v
+      ]
+
+friendlyAssetId :: AssetId -> Text
+friendlyAssetId = \case
+  AdaAssetId -> "ADA"
+  AssetId policyId (AssetName assetName) ->
+    Text.decodeUtf8 $ serialiseToRawBytesHex policyId <> suffix
+    where
+      suffix =
+        case assetName of
+          "" -> ""
+          _  -> "." <> assetName
 
 friendlyTxOutValue :: TxOutValue era -> Aeson.Value
 friendlyTxOutValue = \case
