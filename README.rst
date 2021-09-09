@@ -169,7 +169,7 @@ The general synopsis is as follows:
 
    Usage: cardano-cli (Era based commands | Byron specific commands | Miscellaneous commands)
 
-> NOTE: the exact invocation command depends on the environment.  If you have only built ``cardano-cli``, without installing it, then you have to prepend ``cabal run -- ``
+> NOTE: the exact invocation command depends on the environment.  If you have only built ``cardano-cli``, without installing it, then you have to prepend ``cabal run -- ``
 before ``cardano-cli``.  We henceforth assume that the necessary environment-specific adjustment has been made, so we only mention ``cardano-cli``.
 
 The subcommands are subdivided in groups, and their full list can be seen in the output of ``cardano-cli --help``.
@@ -320,13 +320,13 @@ of the testnet, and lovelace amount is almost the entirety of its funds.
 Local node queries
 ==================
 
-You can query the tip of your local node via the ``get-tip`` command as follows
+You can query the tip of your local node via the ``get-tip`` command as follows:
 
 1. Open `tmux`
 2. Run ``cabal build cardano-node``
 3. Run ``./scripts/lite/shelley-testnet.sh example``
-4. Run ``export CARDANO_NODE_SOCKET_PATH=/cardano-node/example/socket/node-1-socket
-4. ``cabal exec cardano-cli -- get-tip --testnet-magic 42``
+4. Run ``export CARDANO_NODE_SOCKET_PATH=/cardano-node/example/socket/node-1-socket``
+5. Run ``cabal exec cardano-cli -- get-tip --testnet-magic 42``
 
 You will see output from stdout in this format:
 
@@ -386,7 +386,7 @@ Example:
                --filepath my-update-proposal
 
 See the `Byron specification <https://hydra.iohk.io/job/Cardano/cardano-ledger-specs/byronLedgerSpec/latest/download-by-type/doc-pdf/ledger-spec>`_
-for more deatils on update proposals.
+for more details on update proposals.
 
 Update proposal voting
 ======================
@@ -424,7 +424,7 @@ run *ghcid* with: ``ghcid -c "cabal repl exe:cardano-node --reorder-goals"``
 Haskell Language Server
 -----------------------
 
-When using Haskell Langague Server with Visual Studio Code, you may find that
+When using Haskell Language Server with Visual Studio Code, you may find that
 `HLINT annotations are ignored<https://github.com/haskell/haskell-language-server/issues/638>`.
 
 To work around this, you may run the script `./scripts/reconfigure-hlint.sh` to generate a `.hlint.yaml`
@@ -433,7 +433,7 @@ file with HLINT ignore rules derived from the source code.
 Testing
 ========
 
-``cardano-node`` is essentially a container which implements several components such networking, consensus, and storage. These components have individual test coverage. The node goes through integration and release testing by Devops/QA while automated CLI tests are ongoing alongside development.
+``cardano-node`` is essentially a container which implements several components such as networking, consensus, and storage. These components have individual test coverage. The node goes through integration and release testing by DevOps/QA while automated CLI tests are ongoing alongside development.
 
 Developers on ``cardano-node`` can `launch their own testnets <doc/getting-started/launching-a-testnet.md>`_ or `run the chairman tests <doc/getting-started/running-chairman-tests.md>`_ locally.
 
@@ -446,7 +446,7 @@ Debugging
 Pretty printing CBOR encoded files
 ----------------------------------
 
-It may be useful to print the on chain representations of blocks, delegation certificates, txs and update proposals. There are two commands that do this (for any cbor encoded file):
+It may be useful to print the on-chain representations of blocks, delegation certificates, txs and update proposals. There are two commands that do this (for any cbor encoded file):
 
 To pretty print as CBOR:
 ``cabal exec cardano-cli -- pretty-print-cbor --filepath CBOREncodedFile``
